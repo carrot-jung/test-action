@@ -19,7 +19,6 @@ jobs:
     steps:
       - name: Check if TEST.md is Updated
         run: |
-          updated=false
           for commit in "${{ github.event.commits }}"; do
             if git diff-tree --no-commit-id --name-only -r "$commit" | grep -q "TEST.md"; then
               exit 1
