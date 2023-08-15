@@ -16,7 +16,19 @@ jobs:
   build_and_push_docker:
     needs: tests
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && contains(github.event.pull_request.changed_files, 'TEST.md')
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3      
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+
+      - name: Check if TEST.md is modified
+        run: |
+          if [[ "${{ steps.files.outputs.all }}" == *"TEST.md"* ]]; then
+            echo "TEST.md is modified. Continuing..."
+          else
+            echo "TEST.md is not modified. Exiting..."
+            exit 0
+          fi
+      - run: |
+          # Your other steps here
+      # - name: Print Pull Request Event
+      #   run: echo "${{ toJson(github.event.pull_request) }}"
