@@ -33,6 +33,7 @@ jobs:
             echo "::set-output name=approved::true"
           else
             echo "::set-output name=approved::false"
+          fi  
 
   go_ahead:
     needs: build_and_push_docker
