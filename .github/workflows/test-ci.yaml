@@ -17,18 +17,21 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     steps:
-      - id: files
-        uses: jitterbit/get-changed-files@v1
-
-      - name: Check if TEST.md is modified
+      - name: Check if TEST.md is Updated
         run: |
-          if [[ "${{ steps.files.outputs.all }}" == *"TEST.md"* ]]; then
-            echo "TEST.md is modified. Continuing..."
-          else
-            echo "TEST.md is not modified. Exiting..."
-            exit 0
-          fi
-      - run: |
-          # Your other steps here
+          updated=false
+          for commit in "${{ github.event.commits }}"; do
+            if git diff-tree --no-commit-id --name-only -r "$commit" | grep -q "TEST.md"; then
+              updated=true
+              break
+            fi
+          done
       # - name: Print Pull Request Event
       #   run: echo "${{ toJson(github.event.pull_request) }}"
+  go_ahead:
+    needs: build_and_push_docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: helloworld
+        run: |
+          echo "helloworld"
