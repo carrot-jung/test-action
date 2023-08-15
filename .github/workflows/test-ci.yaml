@@ -30,16 +30,20 @@ jobs:
         id: checking-files
         run: |
           if echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q "TEST.md"; then
-            echo "{approved}={true}" >> $GITHUB_OUTPUT
+            echo "::set-output name=approved::true"
           else
-            echo "{approved}={false}" >> $GITHUB_OUTPUT
+            echo "::set-output name=approved::false"
           fi  
 
   go_ahead:
     needs: build_and_push_docker
     runs-on: ubuntu-latest
     steps:
-      - name: Conditional Step
+      - name: Conditional Step1
         if: needs.build_and_push_docker.outputs.approved == 'true'
         run: |
           echo "Performing conditional action because TEST.md was changed."
+      - name: Conditional Step2
+        if: needs.build_and_push_docker.outputs.approved == 'false'
+        run: |
+          echo "Do nothing"     
