@@ -39,7 +39,11 @@ jobs:
     needs: build_and_push_docker
     runs-on: ubuntu-latest
     steps:
-      - name: Conditional Step
+      - name: Conditional Step1
         if: needs.build_and_push_docker.outputs.approved == 'true'
         run: |
           echo "Performing conditional action because TEST.md was changed."
+      - name: Conditional Step2
+        if: needs.build_and_push_docker.outputs.approved == 'false'
+        run: |
+          echo "Do nothing"     
