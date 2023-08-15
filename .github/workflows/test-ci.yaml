@@ -30,9 +30,9 @@ jobs:
         id: checking-files
         run: |
           if echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q "TEST.md"; then
-            echo "::set-output name=approved::true"
+            echo "approved=true"  >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=approved::false"
+            echo "approved=false"  >> $GITHUB_OUTPUT
           fi  
 
   go_ahead:
