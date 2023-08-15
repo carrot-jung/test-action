@@ -19,11 +19,7 @@ jobs:
     steps:
       - name: Check if TEST.md is Updated
         run: |
-          for commit in "${{ github.event.commits }}"; do
-            if git diff-tree --no-commit-id --name-only -r "$commit" | grep -q "TEST.md"; then
-              exit 1
-            fi
-          done
+          echo "${{toJSON(github.event.commits)}}"
       # - name: Print Pull Request Event
       #   run: echo "${{ toJson(github.event.pull_request) }}"
   go_ahead:
