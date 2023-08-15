@@ -28,7 +28,7 @@ jobs:
       - name: List all changed files
         id: checking-files
         outputs:
-          approved: ${{ steps.checking-files.outputs.approved }}  # add ${{ }} for the step output
+          approved: ${{ steps.checking-files.outputs.approved }} 
         run: |
           if echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q "TEST.md"; then
             echo "::set-output name=approved::true"
