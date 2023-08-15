@@ -13,28 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-
----
-
-name: Test CI2
-
-on:
-  pull_request:
-    branches:
-      - main
-      - develop
-
-jobs:
-  tests:
+  build_and_push_docker:
+    needs: tests
     runs-on: ubuntu-latest
+    # if: github.event_name == 'pull_request' && contains(github.event.pull_request.changed_files, 'TEST.md')
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-
-  # build_and_push_docker:
-  #   needs: tests
-  #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'pull_request' && contains(github.event.pull_request.changed_files, 'TEST.md')
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3      
+        run: echo "${github.event.pull_request}" 
