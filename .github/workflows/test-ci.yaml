@@ -31,10 +31,8 @@ jobs:
         run: |
           if echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q "TEST.md"; then
             echo "{approved}={true}" >> $GITHUB_OUTPUT
-            echo "1"
           else
             echo "{approved}={false}" >> $GITHUB_OUTPUT
-            echo "2"
           fi  
 
   go_ahead:
