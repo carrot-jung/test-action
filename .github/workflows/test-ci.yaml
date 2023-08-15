@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Check if TEST.md is Updated
         run: |
-          echo "${{toJSON(github.event.commits)}}"
+          echo "${{ toJson(github.event.pull_request) }}"
       # - name: Print Pull Request Event
       #   run: echo "${{ toJson(github.event.pull_request) }}"
   go_ahead:
