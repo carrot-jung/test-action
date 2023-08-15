@@ -39,9 +39,6 @@ jobs:
     needs: build_and_push_docker
     runs-on: ubuntu-latest
     steps:
-      - name: helloworld
-        run: |
-          echo "helloworld"
       - name: Conditional Step
         if: needs.build_and_push_docker.outputs.approved == 'true'
         run: |
